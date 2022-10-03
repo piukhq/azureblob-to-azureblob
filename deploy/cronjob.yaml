@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: azureblob-to-azureblob
+  namespace: default
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            kubectl.kubernetes.io/default-container: app
+        spec:
+          containers:
+          - name: app
+            image: ghcr.io/binkhq/azureblob-to-azureblob:latest
+            imagePullPolicy: Always
+            env:
+            - name: SRC_CONN_STR
+            - name: DST_CONN_STR
+            - name: SRC_CON_NAME
+            - name: DST_CON_NAME
+          restartPolicy: Never
