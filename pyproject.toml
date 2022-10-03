@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "azureblob-to-azureblob"
+version = "0.1.0"
+description = ""
+authors = ["Thenuja Viknarajah <thenuja_1@outlook.com>"]
+readme = "README.md"
+packages = [{include = "app.py"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+black = "^22.8.0"
+azure-storage-blob = "^12.13.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
