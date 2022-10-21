@@ -6,7 +6,7 @@ metadata:
 spec:
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
-  successfulJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 0
   schedule: "0 1 * * *"
   jobTemplate:
     spec:
@@ -20,8 +20,8 @@ spec:
             image: ghcr.io/binkhq/azureblob-to-azureblob:latest
             imagePullPolicy: Always
             env:
-            - name: SRC_CONN_STR
-            - name: DST_CONN_STR
-            - name: SRC_CON_NAME
-            - name: DST_CON_NAME
+            - name: source_connection_string
+            - name: destination_connection_string
+            - name: source_container_name
+            - name: destination_container_name
           restartPolicy: Never

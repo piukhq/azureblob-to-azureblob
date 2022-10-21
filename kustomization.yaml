@@ -9,17 +9,17 @@ patches:
       - op: replace
         path: /spec/jobTemplate/spec/template/spec/containers/0/env
         value:
-          - name: SRC_CONN_STR
+          - name: source_connection_string
             valueFrom:
               secretKeyRef:
-                key: source_connection_string
+                key: connection_string
                 name: azure-storage-common
-          - name: DST_CONN_STR
+          - name: destination_connection_string
             valueFrom:
               secretKeyRef:
-                key: dest_connection_string
+                key: connection_string
                 name: azure-storage-common
-          - name: SRC_CON_NAME
+          - name: source_container_name
             value: media
-          - name: DST_CON_NAME
-            value: blob-container-02
+          - name: destination_container_name
+            value: backups
