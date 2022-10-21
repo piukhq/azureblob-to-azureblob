@@ -3,6 +3,7 @@ import sys
 import settings
 from azure.storage.blob import BlobServiceClient
 
+
 class AzureBlobCopier:
     def __init__(self):
         print("Intialising AzureBlobCopier")
@@ -62,5 +63,6 @@ def run():
     azure_blob_copier = AzureBlobCopier()
     azure_blob_copier.download_blob(prefix=settings.dst_prefix)
     azure_blob_copier.upload_dir(settings.tmp_dir)
+
 
 run()
