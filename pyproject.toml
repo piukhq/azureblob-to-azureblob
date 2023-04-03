@@ -4,13 +4,23 @@ version = "0.1.0"
 description = ""
 authors = ["Thenuja Viknarajah <thenuja_1@outlook.com>"]
 readme = "README.md"
-packages = [{include = "app.py"}]
+packages = [{include = "app"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 black = "^22.8.0"
 azure-storage-blob = "^12.13.1"
+pydantic = "^1.10.7"
 
+
+[[tool.poetry.source]]
+name = "bink-pypi"
+url = "https://pypi.tools.uksouth.bink.sh/simple"
+default = false
+secondary = false
+
+[tool.poetry.scripts]
+azurectl = "app.cli:cli"
 
 [build-system]
 requires = ["poetry-core"]
