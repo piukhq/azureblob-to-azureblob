@@ -36,7 +36,6 @@ class AzureBlobCopier:
         else:
             container = self.client_init(type="container", container_name=self.source_container_name)
             return [blob for blob in container.list_blob_names()]
-            
 
     def upload_blob_(self) -> None:
         data = BytesIO()
