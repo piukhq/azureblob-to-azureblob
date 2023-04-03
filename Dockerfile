@@ -1,12 +1,14 @@
-FROM ghcr.io/binkhq/python:3.10 AS build
-
-WORKDIR /app
-
+FROM ghcr.io/binkhq/python:3.10-poetry AS build
+WORKDIR /src
 ADD . .
 
-RUN pip install poetry==1.2.0b3
-RUN poetry config virtualenvs.create false
+RUN poetry build && apt-get update
 
-RUN poetry install && apt-get update
+FROM ghcr.io/binkhq/python:3.10
+WORKDIR /app
+COPY --from=build /src/dist/*.whl .
+RUN pip install *.whl && rm *.whl
 
-CMD ["python", "app.py"]
+
+ENTRYPOINT [ "linkerd-await", "--" ]
+CMD [ "/usr/local/bin/azurectl", "upload" ]
