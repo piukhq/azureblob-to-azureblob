@@ -15,10 +15,12 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - run: pip install poetry==1.2.0b3
-      - run: poetry config virtualenvs.create false
-      - run: poetry install
+      - run: pip install poetry
+      - run: poetry install --only dev
       - run: black --line-length=120 --check .
+      - run: isort --check --line-length 120 --profile black .
+      - run: ruff check .
+
   build:
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     name: build
@@ -37,10 +39,10 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - uses: docker/setup-qemu-action@v2
     - uses: docker/setup-buildx-action@v2
-    - uses: docker/build-push-action@v3
+    - uses: docker/build-push-action@v4
       with:
         platforms: linux/amd64, linux/arm64
         push: true
         tags: |
-          ghcr.io/binkhq/azureblob-to-azureblob:${{ env.container_tag }}
-          ghcr.io/binkhq/azureblob-to-azureblob:latest
+          ghcr.io/binkhq/${{ github.event.repository.name }}:${{ env.container_tag }}
+          ghcr.io/binkhq/${{ github.event.repository.name }}:latest

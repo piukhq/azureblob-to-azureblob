@@ -1,8 +1,9 @@
-from typing import Tuple
 from io import BytesIO
+from typing import Tuple
+
+from azure.storage.blob import BlobServiceClient, ContainerClient
 
 from app.settings import settings
-from azure.storage.blob import BlobServiceClient, ContainerClient
 
 
 class AzureBlobCopier:
